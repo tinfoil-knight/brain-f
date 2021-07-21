@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
-	"strings"
 )
 
 func main() {
@@ -15,20 +14,19 @@ func main() {
 	case 0:
 		startPrompt()
 	case 1:
-		runFile(args[1])
+		runFile(args[0])
 	default:
 		panic(errors.New("usage: bf <path-to-file>"))
 	}
 }
 
 func startPrompt() {
+	instance := New([]byte{})
 	for {
 		reader := bufio.NewReader(os.Stdin)
-		fmt.Print("> ")
-		raw, _ := reader.ReadString('\n')
-		text := strings.TrimSpace(raw)
-		// TODO
-		fmt.Println(text)
+		fmt.Print("=> ")
+		text, _ := reader.ReadString('\n')
+		instance.RunREPL([]byte(text))
 	}
 }
 

@@ -1,6 +1,11 @@
 package main
 
-import "errors"
+import (
+	"bufio"
+	"errors"
+	"fmt"
+	"os"
+)
 
 type Interpreter struct {
 	source   []byte
@@ -24,6 +29,20 @@ func (in *Interpreter) Run() {
 	for _, cell := range in.source {
 		in.interpret(cell)
 	}
+	fmt.Println()
+}
+
+func (in *Interpreter) RunREPL(source []byte) {
+	printLine := false
+	for _, cell := range source {
+		in.interpret(cell)
+		if !printLine && cell == '.' {
+			printLine = true
+		}
+	}
+	if printLine {
+		fmt.Println()
+	}
 }
 
 func (in *Interpreter) interpret(cell byte) {
@@ -45,10 +64,14 @@ func (in *Interpreter) interpret(cell byte) {
 	case '-':
 		in.cells[in.position]--
 	case ',':
+		fmt.Print("~ ")
+		reader := bufio.NewReader(os.Stdin)
+		char, _ := reader.ReadByte()
+		in.cells[in.position] = char
 	case '.':
+		fmt.Printf("%c", in.cells[in.position])
 	case '[':
 	case ']':
-
 	}
 
 }
