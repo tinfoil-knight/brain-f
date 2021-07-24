@@ -8,9 +8,10 @@ import (
 )
 
 type Interpreter struct {
-	source   []byte
-	cells    []byte
-	position int
+	source         []byte
+	cells          []byte
+	cellPosition   int
+	sourcePosition int
 }
 
 const DEFAULT_CELLS = 30000
@@ -19,9 +20,10 @@ var ErrInvalidSize = errors.New("max cells must be greater than 1")
 
 func New(source []byte) *Interpreter {
 	return &Interpreter{
-		source:   source,
-		cells:    make([]byte, DEFAULT_CELLS),
-		position: 0,
+		source:         source,
+		cells:          make([]byte, DEFAULT_CELLS),
+		cellPosition:   0,
+		sourcePosition: 0,
 	}
 }
 
@@ -48,30 +50,31 @@ func (in *Interpreter) RunREPL(source []byte) {
 func (in *Interpreter) interpret(cell byte) {
 	switch cell {
 	case '>':
-		if in.position == len(in.cells)-1 {
-			in.position = 0
+		if in.cellPosition == len(in.cells)-1 {
+			in.cellPosition = 0
 		} else {
-			in.position++
+			in.cellPosition++
 		}
 	case '<':
-		if int(in.position) == 0 {
-			in.position = len(in.cells) - 1
+		if int(in.cellPosition) == 0 {
+			in.cellPosition = len(in.cells) - 1
 		} else {
-			in.position--
+			in.cellPosition--
 		}
 	case '+':
-		in.cells[in.position]++
+		in.cells[in.cellPosition]++
 	case '-':
-		in.cells[in.position]--
+		in.cells[in.cellPosition]--
 	case ',':
 		fmt.Print("~ ")
 		reader := bufio.NewReader(os.Stdin)
 		char, _ := reader.ReadByte()
-		in.cells[in.position] = char
+		in.cells[in.cellPosition] = char
 	case '.':
-		fmt.Printf("%c", in.cells[in.position])
+		fmt.Printf("%c", in.cells[in.cellPosition])
 	case '[':
 	case ']':
-	}
 
+	}
+	in.sourcePosition++
 }
