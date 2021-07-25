@@ -17,7 +17,6 @@ type Interpreter struct {
 
 const DEFAULT_CELLS = 30000
 
-var ErrInvalidSize = errors.New("max cells must be greater than 1")
 var ErrInvalidSyntax = errors.New("invalid syntax")
 
 func New(source []byte) *Interpreter {
