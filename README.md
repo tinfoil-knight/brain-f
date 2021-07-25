@@ -35,6 +35,14 @@ This will create an executable binary with the name `bf`.
 
 The number of cells for the interpreter are fixed and moving beyond the last cells causes it to wrap (and vice versa in the case of moving left of the first cell).
 
+## License
+
+[MIT](./LICENSE)
+
 ## Author
 
 - **_Kunal Kundu_** [@tinfoil-knight](https://github.com/tinfoil-knight)
+
+## Attribution
+
+- [Brainfuck Visualizer](https://fatiherikli.github.io/brainfuck-visualizer/#) by [fatiherikli](https://github.com/fatiherikli)
