@@ -1,6 +1,6 @@
 # brain-f
 
-This is an interpreter written for the esoteric language [BrainF\*\*k](https://esolangs.org/wiki/Brainfuck) in Go.
+This is an interpreter written in Go for the esoteric language [BrainF\*\*k](https://esolangs.org/wiki/Brainfuck). See some of the examples [here](https://en.wikipedia.org/wiki/Brainfuck#Examples).
 
 ## Getting Started
 
